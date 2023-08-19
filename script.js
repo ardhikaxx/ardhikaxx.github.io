@@ -293,7 +293,7 @@ CrownsRunner.update = function() {
 
   this.aceleration += (this.acelerationTweening - this.aceleration) * 0.01;
 
-  if (isTouching && !this.touchFlag) {
+  if (isTouching && this.player.velocityY > -8) {
     if (this.player.velocityY > -8) {
       this.player.velocityY = -8; // Batas kecepatan naik saat sentuhan masih aktif
     } else {
@@ -303,9 +303,6 @@ CrownsRunner.update = function() {
     if (this.jumpCount > this.jumpCountRecord) {
       this.jumpCountRecord = this.jumpCount;
     }
-    this.touchFlag = true; // Setel flag agar lompatan hanya terjadi sekali
-  } else if (!isTouching) {
-    this.touchFlag = false; // Reset flag ketika sentuhan tidak aktif
   }
 
   for (i = 0; i < this.platformManager.platforms.length; i++) {
