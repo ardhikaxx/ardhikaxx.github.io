@@ -240,8 +240,6 @@ Particle.prototype.draw = function() {
 
 /************************************************/
 
-var isTouching = false;
-
 CrownsRunner.setup = function () {
 
   this.jumpCount = 0;
@@ -258,15 +256,6 @@ CrownsRunner.setup = function () {
   this.collidedPlatform = null;
   this.scoreColor = 'white';
   this.jumpCountRecord = 0;
-
-  document.getElementById("container").addEventListener("touchstart", function(event) {
-    isTouching = true;
-  });
-
-  document.getElementById("container").addEventListener("touchend", function(event) {
-    isTouching = false;
-  });
-
 };
 
 CrownsRunner.update = function() {
@@ -292,21 +281,6 @@ CrownsRunner.update = function() {
   }
 
   this.aceleration += (this.acelerationTweening - this.aceleration) * 0.01;
-
-  if (isTouching && !this.touchFlag) {
-    if (this.player.velocityY > -8) {
-      this.player.velocityY = -8; // Batas kecepatan naik saat sentuhan masih aktif
-    } else {
-      this.player.velocityY += -0.75;
-    }
-    this.jumpCount++;
-    if (this.jumpCount > this.jumpCountRecord) {
-      this.jumpCountRecord = this.jumpCount;
-    }
-    this.touchFlag = true; // Setel flag agar lompatan hanya terjadi sekali
-  } else if (!isTouching) {
-    this.touchFlag = false; // Reset flag ketika sentuhan tidak aktif
-  }
 
   for (i = 0; i < this.platformManager.platforms.length; i++) {
     if(this.player.intersects(this.platformManager.platforms[i])){
