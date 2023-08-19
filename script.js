@@ -242,6 +242,24 @@ Particle.prototype.draw = function() {
 
 CrownsRunner.setup = function () {
 
+  CrownsRunner.container.addEventListener('touchstart', function(event) {
+    event.preventDefault();
+    CrownsRunner.dragging = true;
+  });
+
+  CrownsRunner.container.addEventListener('touchend', function(event) {
+    event.preventDefault();
+    CrownsRunner.dragging = false;
+  });
+
+  CrownsRunner.container.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+    if (CrownsRunner.dragging) {
+      var touch = event.touches[0];
+      CrownsRunner.keys.UP = touch.pageY < CrownsRunner.height / 2; // Jump when touching the upper half of the screen
+    }
+  });
+  
   this.jumpCount = 0;
   this.aceleration = 0;
   this.acelerationTweening = 0;
