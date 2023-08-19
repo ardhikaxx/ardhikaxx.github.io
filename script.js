@@ -244,14 +244,6 @@ var isTouching = false;
 
 CrownsRunner.setup = function () {
 
-  document.getElementById("container").addEventListener("touchstart", function(event) {
-    isTouching = true;
-  });
-
-  document.getElementById("container").addEventListener("touchend", function(event) {
-    isTouching = false;
-  });
-
   this.jumpCount = 0;
   this.aceleration = 0;
   this.acelerationTweening = 0;
@@ -266,6 +258,14 @@ CrownsRunner.setup = function () {
   this.collidedPlatform = null;
   this.scoreColor = 'white';
   this.jumpCountRecord = 0;
+
+  document.getElementById("container").addEventListener("touchstart", function(event) {
+    isTouching = true;
+  });
+
+  document.getElementById("container").addEventListener("touchend", function(event) {
+    isTouching = false;
+  });
 
 };
 
@@ -294,7 +294,11 @@ CrownsRunner.update = function() {
   this.aceleration += (this.acelerationTweening - this.aceleration) * 0.01;
 
   if (isTouching) {
-    this.player.velocityY = this.player.jumpSize;
+    if (this.player.velocityY > -8) {
+      this.player.velocityY = -8; // Batas kecepatan naik saat sentuhan masih aktif
+    } else {
+      this.player.velocityY += -0.75;
+    }
     this.jumpCount++;
     if (this.jumpCount > this.jumpCountRecord) {
       this.jumpCountRecord = this.jumpCount;
