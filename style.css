@@ -1,0 +1,35 @@
+body {
+  background: #333;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#container {
+  margin-top: 10%;
+  display: inline-block;
+}
+
+canvas {
+  background: #333;
+  border: 5px solid #ffffff;
+}
+
+.logo-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#logo {
+  max-width: 350px; /* Tetapkan lebar maksimum logo */
+  width: 100%; /* Pastikan logo tetap responsif */
+}
+
+@media (max-width: 768px) {
+  .logo-container {
+    position: static;
+    text-align: center;
+  }
+}
