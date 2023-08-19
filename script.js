@@ -240,7 +240,17 @@ Particle.prototype.draw = function() {
 
 /************************************************/
 
+var isTouching = false;
+
 CrownsRunner.setup = function () {
+
+  document.getElementById("container").addEventListener("touchstart", function(event) {
+    isTouching = true;
+  });
+
+  document.getElementById("container").addEventListener("touchend", function(event) {
+    isTouching = false;
+  });
 
   this.jumpCount = 0;
   this.aceleration = 0;
@@ -282,6 +292,14 @@ CrownsRunner.update = function() {
   }
 
   this.aceleration += (this.acelerationTweening - this.aceleration) * 0.01;
+
+  if (isTouching) {
+    this.player.velocityY = this.player.jumpSize;
+    this.jumpCount++;
+    if (this.jumpCount > this.jumpCountRecord) {
+      this.jumpCountRecord = this.jumpCount;
+    }
+  }
 
   for (i = 0; i < this.platformManager.platforms.length; i++) {
     if(this.player.intersects(this.platformManager.platforms[i])){
